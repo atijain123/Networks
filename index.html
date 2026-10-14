@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlowScope | Network Simulation</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar"><div class="brand">FlowScope <span>Network Simulation</span></div></header>
+    <main>
+      <section class="page-heading">
+        <div><h1>Application-Aware SDN</h1><p id="scenarioName">Ready for a simulation run</p></div>
+        <div class="actions"><button class="secondary-button" id="resetButton">Reset</button><button class="primary-button" id="runButton">Run simulation</button></div>
+      </section>
+
+      <section class="run-summary">
+        <div><span>Simulation</span><strong id="simulationRun">Not started</strong></div>
+        <div><span>Scenario</span><strong id="scenarioProfile">—</strong><small id="scenarioLinks"></small></div>
+        <div><span>Topology</span><strong>6 switches · 3 flows</strong></div>
+        <div><span>Generation</span><strong id="generation">—</strong></div>
+      </section>
+
+      <section class="panel topology-panel">
+        <div class="panel-title"><h2>Network topology</h2><span id="bottleneck">Link load: pending</span></div>
+        <svg class="topology" viewBox="0 0 700 270" role="img" aria-label="Six-switch multipath topology">
+          <g class="links">
+            <path data-link="s1-s2" d="M126 135 L260 54"/><path data-link="s1-s3" d="M126 135 L260 216"/>
+            <path data-link="s2-s4" d="M260 54 L440 54"/><path data-link="s3-s5" d="M260 216 L440 216"/>
+            <path data-link="s2-s5" d="M260 54 L440 216"/><path data-link="s3-s4" d="M260 216 L440 54"/>
+            <path data-link="s4-s6" d="M440 54 L574 135"/><path data-link="s5-s6" d="M440 216 L574 135"/>
+            <g id="routeOverlay"></g>
+          </g>
+          <g class="nodes">
+            <g transform="translate(105 114)"><rect width="42" height="42"/><text x="21" y="26">s1</text></g>
+            <g transform="translate(239 33)"><rect width="42" height="42"/><text x="21" y="26">s2</text></g>
+            <g transform="translate(239 195)"><rect width="42" height="42"/><text x="21" y="26">s3</text></g>
+            <g transform="translate(419 33)"><rect width="42" height="42"/><text x="21" y="26">s4</text></g>
+            <g transform="translate(419 195)"><rect width="42" height="42"/><text x="21" y="26">s5</text></g>
+            <g transform="translate(553 114)"><rect width="42" height="42"/><text x="21" y="26">s6</text></g>
+          </g>
+          <g class="hosts"><circle cx="70" cy="135" r="12"/><text x="70" y="139">h1</text><path d="M82 135H105"/><circle cx="630" cy="135" r="12"/><text x="630" y="139">h6</text><path d="M595 135H618"/></g>
+        </svg>
+        <div class="legend"><span><i class="route-key"></i> NSGA-II route</span><span><i class="hot-key"></i> Scenario high-load link</span></div>
+      </section>
+
+      <section class="policy-comparison">
+        <article class="panel policy-panel">
+          <div class="panel-title"><h2>Baseline: shortest paths</h2><span>Same network state</span></div>
+          <div class="flow-table" id="baselineFlowTable"><div class="empty-row">Run a simulation.</div></div>
+          <p class="plan-note">Shortest-delay route assignment</p>
+        </article>
+        <article class="panel policy-panel nsga-panel">
+          <div class="panel-title"><h2>NSGA-II routing</h2><span id="paretoCount">—</span></div>
+          <div class="flow-table" id="nsgaFlowTable"><div class="empty-row">Run a simulation.</div></div>
+          <p class="plan-note">Application-aware route assignment</p>
+        </article>
+      </section>
+
+      <section class="panel comparison-panel">
+        <div class="panel-title"><h2>Same scenario: policy comparison</h2><span id="comparisonStatus">—</span></div>
+        <div class="comparison-table" id="comparisonTable">
+          <div class="table-header"><span>Metric</span><span>Baseline</span><span>NSGA-II</span><span>Change</span></div>
+          <div class="empty-row">Run a simulation to compare results.</div>
+        </div>
+        <div class="progress-line"><span id="progress"></span></div>
+        <p class="run-state" id="searchCaption">Ready to run.</p>
+      </section>
+    </main>
+    <footer>FlowScope · Application-Aware SDN Traffic Engineering</footer>
+    <script src="app.js"></script>
+  </body>
+</html>
